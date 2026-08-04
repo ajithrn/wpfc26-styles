@@ -1,0 +1,374 @@
+// =============================================================================
+// WPFC26 — Tickets Page (CampTix)
+// =============================================================================
+
+#tix {
+  background: linear-gradient(135deg, rgba($color-teal, 0.03) 0%, rgba($color-green, 0.03) 100%);
+  border: 1px solid rgba($color-dark, 0.06);
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+
+  @include device-size(phone) {
+    padding: $spacing-lg $spacing-md;
+  }
+
+  h2 {
+    @include gradient-text();
+    font-weight: 800;
+    margin-bottom: $spacing-lg;
+    display: inline-block;
+  }
+
+  // Ticket table
+  .tix_tickets_table {
+    width: 100%;
+    text-align: left;
+    font-size: 0.95rem;
+    border-collapse: collapse;
+    display: table;
+
+    thead {
+      display: table-header-group;
+
+      th {
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 14px $spacing-md;
+        color: rgba($color-dark, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        border-bottom: 1px solid rgba($color-dark, 0.08);
+      }
+    }
+
+    tbody {
+      display: table-row-group;
+
+      tr {
+        display: table-row;
+      }
+
+      th, td {
+        display: table-cell;
+      }
+    }
+
+    td {
+      padding: 16px $spacing-md;
+      border-bottom: 1px solid rgba($color-dark, 0.04);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tix-ticket-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: $color-dark;
+    }
+
+    .tix-ticket-excerpt {
+      font-weight: 400;
+      color: rgba($color-dark, 0.6);
+      font-size: 0.88rem;
+    }
+
+    .tix-column-quantity select {
+      width: 70px;
+      height: 38px;
+      padding: 6px 10px;
+      border: 1px solid rgba($color-dark, 0.12);
+      border-radius: $radius-md;
+      font-family: $font-family;
+      font-size: 0.9rem;
+      background: $color-white;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        border-color: $color-teal;
+        box-shadow: 0 0 0 3px rgba($color-teal, 0.1);
+      }
+    }
+
+    .tix-column-price,
+    .tix-column-remaining {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    #tix-coupon-input {
+      border: 1px solid rgba($color-dark, 0.12);
+      border-radius: $radius-md;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-family: $font-family;
+
+      &:focus {
+        outline: none;
+        border-color: $color-teal;
+      }
+    }
+
+    // Mobile layout
+    @media (max-width: 767px) {
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: block;
+
+        tr {
+          display: flex;
+          flex-direction: column;
+          background: $color-white;
+          border-radius: $radius-lg;
+          padding: $spacing-md;
+          margin-bottom: $spacing-sm;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+          border: 1px solid rgba($color-dark, 0.06);
+        }
+
+        td {
+          display: block;
+          padding: 6px 0;
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  // Attendee form
+  .tix-attendee-form {
+    margin-bottom: $spacing-xl;
+    border-bottom: 1px solid rgba($color-dark, 0.06);
+    padding-bottom: $spacing-xl;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    tr {
+      border-bottom: 1px solid rgba($color-dark, 0.05);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 12px 0;
+      vertical-align: middle;
+
+      &:first-child {
+        width: 35%;
+        padding-right: $spacing-md;
+
+        @include device-size(phone) {
+          width: 100%;
+          display: block;
+          padding-right: 0;
+          padding-bottom: 4px;
+        }
+      }
+
+      &:last-child {
+        @include device-size(phone) {
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      max-width: 450px;
+      border: 1.5px solid rgba($color-dark, 0.12);
+      border-radius: $radius-md;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      font-family: $font-family;
+      background: $color-white;
+      transition: all $transition-fast;
+      appearance: none;
+      -webkit-appearance: none;
+
+      &:focus {
+        outline: none;
+        border-color: $color-teal;
+        box-shadow: 0 0 0 3px rgba($color-teal, 0.08);
+      }
+
+      &:hover:not(:focus) {
+        border-color: rgba($color-dark, 0.2);
+      }
+
+      @include device-size(phone) {
+        max-width: 100%;
+      }
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: auto;
+      height: auto;
+      margin-right: 8px;
+      accent-color: $color-teal;
+    }
+
+    label {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: $color-dark;
+      cursor: pointer;
+
+      .tix-required {
+        color: #e53e3e;
+      }
+    }
+
+    // Fieldset for radio/checkbox groups
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+
+      label {
+        display: block;
+        padding: 6px 0;
+        font-weight: 400;
+      }
+    }
+  }
+
+  // Buttons
+  input[type="submit"] {
+    @include gradient-button('md');
+    border-radius: $radius-full;
+    cursor: pointer;
+  }
+
+  .tix-checkout-button {
+    @include gradient-button('lg');
+    border-radius: $radius-full;
+    padding: 14px 36px !important;
+    cursor: pointer;
+  }
+
+  // Payment method select
+  .tix-payment-method {
+    select {
+      border: 1.5px solid rgba($color-dark, 0.12);
+      border-radius: $radius-md;
+      padding: 10px 14px;
+      font-family: $font-family;
+      font-size: 0.9rem;
+      appearance: none;
+      -webkit-appearance: none;
+      background: $color-white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+      padding-right: 36px;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        border-color: $color-teal;
+      }
+    }
+  }
+
+  // Notices
+  .tix-notice {
+    background: rgba($color-teal, 0.06);
+    border: 1px solid rgba($color-teal, 0.15);
+    border-radius: $radius-md;
+    padding: $spacing-md $spacing-lg;
+    font-size: 0.92rem;
+    color: $color-dark;
+  }
+
+  .tix-error {
+    background: rgba(#e53e3e, 0.06);
+    border: 1px solid rgba(#e53e3e, 0.15);
+    border-radius: $radius-md;
+    padding: $spacing-md $spacing-lg;
+    color: #c53030;
+  }
+}
+
+// Attendees list
+#tix-attendees {
+  .tix-attendee-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+    padding: 0;
+    list-style: none;
+
+    @include device-size(tablet-portrait) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include device-size(desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    li {
+      background: $color-white;
+      border: 1px solid rgba($color-dark, 0.06);
+      border-radius: $radius-lg;
+      padding: $spacing-md;
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      transition: all $transition-base;
+
+      &:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      }
+
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .tix-attendee-name {
+        font-weight: 600;
+        font-size: 0.92rem;
+        color: $color-dark;
+      }
+
+      a {
+        color: rgba($color-dark, 0.5);
+        font-size: 0.8rem;
+
+        &:hover {
+          color: $color-teal;
+        }
+      }
+    }
+  }
+}

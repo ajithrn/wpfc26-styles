@@ -1,0 +1,70 @@
+// =============================================================================
+// WPFC26 — Typography
+// =============================================================================
+
+h1, h2, h3, h4, h5, h6,
+.wp-block-heading {
+  font-family: $font-family;
+  color: $color-dark;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+h2 {
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+h3 {
+  font-weight: 700;
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: rgba($color-dark, 0.75);
+  margin-top: 0;
+}
+
+// Gradient text utility
+.wpfc-gradient-text {
+  @include gradient-text();
+}
+
+// Section title pattern
+.wpfc-section-title {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+
+  h2 {
+    @include gradient-text();
+    font-weight: 900;
+    display: inline-block;
+    position: relative;
+    padding-bottom: $spacing-sm;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: $gradient-primary;
+      border-radius: 2px;
+    }
+  }
+}

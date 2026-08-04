@@ -1,0 +1,50 @@
+// =============================================================================
+// WPFC26 — Sections & Layout
+// =============================================================================
+
+// Section wrapper — balanced spacing
+.wpfc-section {
+  padding: $spacing-xl $spacing-md !important;
+
+  @include device-size(tablet-portrait) {
+    padding: $spacing-xl $spacing-lg !important;
+  }
+
+  @include device-size(desktop) {
+    padding: $spacing-xl 0 !important;
+  }
+}
+
+// Container
+.wpfc-container {
+  max-width: $container-max;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Grid helpers
+.wpfc-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+
+  @include device-size(tablet-portrait) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg;
+  }
+}
+
+.wpfc-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+
+  @include device-size(tablet-portrait) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg;
+  }
+
+  @include device-size(desktop) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

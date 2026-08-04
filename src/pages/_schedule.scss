@@ -1,0 +1,150 @@
+// =============================================================================
+// WPFC26 — Schedule Page
+// =============================================================================
+
+// WordCamp Schedule Block (production)
+.wp-block-wordcamp-schedule,
+.wordcamp-schedule {
+  .wordcamp-schedule__row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: $spacing-md;
+    padding: $spacing-md 0;
+    border-bottom: 1px solid $color-border;
+    align-items: start;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    @include device-size(phone) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .wordcamp-schedule__time {
+    font-weight: $font-weight-bold;
+    color: $color-teal;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .wordcamp-schedule__session {
+    .wordcamp-session__title {
+      font-weight: $font-weight-bold;
+      font-size: 1.1rem;
+      color: $color-dark;
+      margin-bottom: 4px;
+    }
+
+    .wordcamp-session__speaker {
+      font-size: 0.9rem;
+      color: $color-mid-gray;
+    }
+
+    .wordcamp-session__track {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: $radius-full;
+      font-size: 0.75rem;
+      font-weight: $font-weight-semibold;
+      background: rgba($color-teal, 0.1);
+      color: $color-teal;
+      margin-top: $spacing-xs;
+    }
+  }
+}
+
+// Custom schedule (local build with group blocks)
+.wpfc-schedule {
+  // Each schedule item is a wp-block-group with flex layout
+  .wpfc-schedule__item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-md;
+    padding: $spacing-md;
+    border-bottom: 1px solid $color-border;
+
+    @include device-size(phone) {
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    // Break items (tea, lunch)
+    &.wpfc-schedule__item--break {
+      background: $color-light-gray;
+      border-radius: $radius-md;
+      border-bottom: none;
+      margin: $spacing-xs 0;
+    }
+  }
+
+  .wpfc-schedule__time {
+    font-weight: $font-weight-bold;
+    color: $color-teal;
+    font-size: 0.9rem;
+    min-width: 100px;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .wpfc-schedule__details {
+    flex: 1;
+
+    h4, .wp-block-heading {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+      font-weight: $font-weight-bold;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: $color-mid-gray;
+      line-height: 1.5;
+    }
+  }
+}
+
+// Schedule table (wp-block-table)
+.wpfc-schedule-table {
+  .wp-block-table {
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 100%;
+
+      th {
+        background: rgba($color-teal, 0.08);
+        font-weight: $font-weight-semibold;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        padding: 12px $spacing-md;
+        text-align: left;
+      }
+
+      td {
+        padding: 14px $spacing-md;
+        border-bottom: 1px solid $color-border;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      // Break row styling
+      tr.is-break td {
+        background: $color-light-gray;
+        font-weight: $font-weight-semibold;
+        color: $color-mid-gray;
+        font-style: italic;
+      }
+    }
+  }
+}

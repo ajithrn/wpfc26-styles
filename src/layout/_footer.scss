@@ -1,0 +1,112 @@
+// =============================================================================
+// WPFC26 — Footer
+// =============================================================================
+
+.site-footer {
+  background: $color-dark;
+  color: rgba($color-white, 0.8);
+  padding: $spacing-2xl $spacing-md $spacing-lg !important;
+
+  @include device-size(tablet-portrait) {
+    padding: $spacing-2xl $spacing-xl $spacing-lg !important;
+  }
+
+  h4 {
+    color: $color-white;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: $spacing-md;
+    font-weight: 600;
+  }
+
+  p {
+    color: rgba($color-white, 0.6);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  a {
+    color: rgba($color-white, 0.7);
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-teal;
+    }
+  }
+
+  // Footer logo
+  .footer-logo {
+    margin-bottom: $spacing-md !important;
+
+    img {
+      max-width: 180px;
+      height: auto;
+      opacity: 0.9;
+    }
+  }
+
+  // Footer nav lists
+  .footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 10px;
+
+      a {
+        font-size: 0.92rem;
+        font-weight: 400;
+
+        &:hover {
+          color: $color-teal;
+          padding-left: 4px;
+        }
+      }
+    }
+  }
+
+  // Footer columns
+  .footer-columns {
+    gap: $spacing-xl !important;
+    margin-bottom: $spacing-xl;
+
+    @include device-size(phone) {
+      flex-direction: column;
+      gap: $spacing-lg !important;
+    }
+  }
+
+  // Social links
+  .wp-block-social-links {
+    margin-top: $spacing-sm;
+    gap: 12px;
+
+    .wp-social-link {
+      width: 36px;
+      height: 36px;
+      background: rgba($color-white, 0.1) !important;
+      border-radius: 50%;
+      transition: all $transition-fast;
+
+      &:hover {
+        background: $color-teal !important;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// Credits bar
+.site-footer__credits {
+  border-top: 1px solid rgba($color-white, 0.08);
+  margin-top: $spacing-xl;
+  padding-top: $spacing-md !important;
+
+  p {
+    font-size: 0.82rem;
+    color: rgba($color-white, 0.4);
+    text-align: center;
+  }
+}

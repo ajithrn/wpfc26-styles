@@ -1,0 +1,60 @@
+// =============================================================================
+// WPFC26 — Forms
+// =============================================================================
+
+// Contact form (Jetpack)
+.wp-block-jetpack-contact-form {
+  .grunion-field-wrap {
+    margin-bottom: $spacing-sm;
+
+    label {
+      color: $color-dark;
+      font-size: 15px;
+      font-weight: $font-weight-semibold;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    input,
+    select {
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: 10px 14px;
+      line-height: 1.5;
+      font-size: 16px;
+      font-family: $font-family;
+      background: $color-white;
+      width: 100%;
+      transition: border-color $transition-fast;
+
+      &:focus {
+        outline: none;
+        border-color: $color-teal;
+        box-shadow: 0 0 0 3px rgba($color-teal, 0.1);
+      }
+    }
+
+    textarea {
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: 10px 14px;
+      line-height: 1.6;
+      font-size: 16px;
+      font-family: $font-family;
+      background: $color-white;
+      width: 100%;
+      min-height: 120px;
+      transition: border-color $transition-fast;
+
+      &:focus {
+        outline: none;
+        border-color: $color-teal;
+        box-shadow: 0 0 0 3px rgba($color-teal, 0.1);
+      }
+    }
+  }
+
+  .wp-block-button__link {
+    @include gradient-button('md');
+  }
+}

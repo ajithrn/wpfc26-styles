@@ -1,0 +1,90 @@
+// =============================================================================
+// WPFC26 — General Page Styles
+// =============================================================================
+
+// Page title / hero banner for inner pages
+.wp-block-post-title {
+  font-weight: 900 !important;
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 2.8rem) !important;
+  letter-spacing: -0.03em;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  margin-block-start: 0 !important;
+  margin-block-end: 0 !important;
+  padding: $spacing-lg $spacing-md !important;
+  position: relative;
+  max-width: none !important;
+  width: 100% !important;
+
+  // Gradient text — use color instead (background-clip broken by ::before)
+  color: $color-teal !important;
+  -webkit-text-fill-color: $color-teal;
+  background-color: #f4fdfb;
+  border-bottom: 1px solid rgba($color-teal, 0.08);
+}
+
+// Hide page title on home page
+body.home .wp-block-post-title,
+body.page-id-7 .wp-block-post-title {
+  display: none !important;
+}
+
+// Content area below the page title
+.wp-block-post-content {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  margin-block-start: 0 !important;
+
+  > :first-child {
+    margin-top: 0 !important;
+    margin-block-start: 0 !important;
+  }
+
+  .wpfc-section:first-child {
+    padding-top: $spacing-xl !important;
+  }
+
+  // Ensure proper side padding on content
+  &.has-global-padding {
+    padding-left: clamp(1.5rem, 4vw, 3rem) !important;
+    padding-right: clamp(1.5rem, 4vw, 3rem) !important;
+  }
+
+  // Typography within content pages
+  h2 {
+    margin-top: $spacing-xl;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+    margin-top: $spacing-lg;
+    margin-bottom: $spacing-sm;
+  }
+
+  ul, ol {
+    padding-left: $spacing-md;
+    margin-bottom: $spacing-md;
+
+    li {
+      margin-bottom: $spacing-xs;
+      line-height: 1.8;
+      color: rgba($color-dark, 0.75);
+    }
+  }
+
+  strong {
+    font-weight: 700;
+    color: $color-dark;
+  }
+}
+
+// Ticket info columns
+.wpfc-ticket-info {
+  margin-top: $spacing-xl;
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: $spacing-sm;
+  }
+}

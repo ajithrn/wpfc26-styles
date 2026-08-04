@@ -1,0 +1,200 @@
+// =============================================================================
+// WPFC26 — Reset & Core Overrides
+// =============================================================================
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-family;
+  color: $color-dark;
+  background: $color-white !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+// =============================================================================
+// Layout — Override TT4 theme.json constraints
+// =============================================================================
+
+// Widen the constrained layout
+.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  max-width: $container-max !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.is-layout-constrained > .alignwide {
+  max-width: 1320px !important;
+}
+
+.is-layout-constrained > .alignfull {
+  max-width: none !important;
+}
+
+// Global padding — reduce and control
+.has-global-padding {
+  padding-left: clamp(1rem, 3vw, 2.5rem) !important;
+  padding-right: clamp(1rem, 3vw, 2.5rem) !important;
+}
+
+// Hero cover block — must break out of the constrained parent
+.wp-block-cover.wpfc-hero,
+.wp-block-post-content > .wp-block-cover.wpfc-hero,
+.is-layout-constrained > .wp-block-cover.wpfc-hero,
+.has-global-padding > .wp-block-cover.wpfc-hero {
+  max-width: none !important;
+  width: calc(100% + var(--wp--style--root--padding-right, 2rem) + var(--wp--style--root--padding-left, 2rem)) !important;
+  margin-left: calc(-1 * var(--wp--style--root--padding-left, 2rem)) !important;
+  margin-right: calc(-1 * var(--wp--style--root--padding-right, 2rem)) !important;
+  margin-top: 0 !important;
+  margin-block-start: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+// When hero has alignfull class
+.wp-block-cover.wpfc-hero.alignfull {
+  max-width: none !important;
+  width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  margin-top: 0 !important;
+  margin-block-start: 0 !important;
+}
+
+// CTA section also needs full-width feel
+.wp-block-post-content > .wpfc-cta,
+.is-layout-constrained > .wpfc-cta {
+  max-width: $container-max !important;
+}
+
+// Hide page title on home
+body.home .wp-block-post-title,
+body.page-id-7 .wp-block-post-title {
+  display: none !important;
+}
+
+// Page title on inner pages — no top gap
+.wp-block-post-title {
+  margin-block-start: 0 !important;
+}
+
+// Remove excess spacing from post content
+.wp-block-post-content {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  margin-block-start: 0 !important;
+
+  // First child (hero on home) should have no top margin
+  > :first-child {
+    margin-top: 0 !important;
+    margin-block-start: 0 !important;
+  }
+}
+
+// The main wrapper inside page template — remove its internal gaps
+main.wp-block-group {
+  > * {
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+  }
+}
+
+// The group wrapping the post title — no padding leaking
+main.wp-block-group > .wp-block-group:has(.wp-block-post-title) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+// Site blocks wrapper — remove gaps between header/main/footer
+.wp-site-blocks {
+  padding-top: 0 !important;
+  background: $color-white;
+
+  // Remove ALL margin between direct children
+  > * {
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+  }
+
+  > .wp-block-template-part:first-child + * {
+    margin-top: 0 !important;
+    margin-block-start: 0 !important;
+  }
+}
+
+// =============================================================================
+// Base Elements
+// =============================================================================
+
+a {
+  color: $color-teal;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: #0e9ba4; // darken($color-teal, 12%)
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Remove default block margins
+.wp-block-group + .wp-block-group {
+  margin-top: 0;
+}
+
+// Selection
+::selection {
+  background: rgba($color-teal, 0.15);
+  color: $color-dark;
+}
+
+// =============================================================================
+// TT4 Color Preset Overrides
+// =============================================================================
+.has-base-background-color,
+.has-base-2-background-color {
+  background-color: $color-white !important;
+}
+
+.has-contrast-color,
+.has-contrast-background-color {
+  color: $color-dark;
+}
+
+// Override TT4 CSS custom properties that may be referenced by core blocks
+:root {
+  --wp--preset--color--base: #{$color-white};
+  --wp--preset--color--base-2: #{$color-white};
+  --wp--preset--color--contrast: #{$color-dark};
+  --wp--preset--color--contrast-2: #{$color-dark};
+  --wp--preset--color--accent-1: #{$color-teal};
+  --wp--preset--color--accent-2: #{$color-green};
+  --wp--style--root--padding-right: clamp(1rem, 3vw, 2.5rem);
+  --wp--style--root--padding-left: clamp(1rem, 3vw, 2.5rem);
+}
+
+// Ensure page background is white
+.wp-site-blocks {
+  background: $color-white;
+}

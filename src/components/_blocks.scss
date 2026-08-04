@@ -1,0 +1,147 @@
+// =============================================================================
+// WPFC26 — WordPress Block Overrides
+// =============================================================================
+
+// Cover Block (general)
+.wp-block-cover {
+  border-radius: 0;
+}
+
+// Columns — consistent gap
+.wp-block-columns {
+  gap: $spacing-lg !important;
+
+  @include device-size(phone) {
+    gap: $spacing-md !important;
+    flex-direction: column !important;
+  }
+
+  // Ensure columns have spacing within flex layout
+  &.is-layout-flex {
+    gap: $spacing-lg !important;
+  }
+}
+
+// Separator
+.wp-block-separator {
+  border: none !important;
+  height: 1px;
+  background: rgba($color-dark, 0.08);
+  opacity: 1;
+  margin: $spacing-xl 0 !important;
+
+  &.is-style-wide {
+    max-width: none;
+  }
+
+  // Gradient separator
+  &.has-background {
+    background: $gradient-primary !important;
+    height: 3px;
+    border-radius: 2px;
+  }
+}
+
+// Details / Accordion (FAQ)
+.wp-block-details {
+  border: 1px solid rgba($color-dark, 0.08);
+  border-radius: $radius-lg;
+  padding: $spacing-md $spacing-lg;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  background: $color-white;
+
+  &[open] {
+    border-color: rgba($color-teal, 0.3);
+    box-shadow: 0 4px 20px rgba($color-teal, 0.06);
+  }
+
+  summary {
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+    padding: $spacing-xs 0;
+    color: $color-dark;
+    line-height: 1.5;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: '+';
+      margin-left: auto;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba($color-teal, 0.08);
+      color: $color-teal;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all $transition-base;
+    }
+  }
+
+  &[open] summary::after {
+    content: '−';
+    background: $color-teal;
+    color: $color-white;
+    transform: rotate(180deg);
+  }
+
+  // Answer content
+  > *:not(summary) {
+    padding-top: $spacing-sm;
+    color: rgba($color-dark, 0.7);
+    line-height: 1.8;
+  }
+}
+
+// Group block backgrounds
+.wp-block-group.has-background {
+  border-radius: $radius-lg;
+}
+
+// Quote
+.wp-block-quote {
+  border-left: 3px solid $color-teal;
+  padding-left: $spacing-lg;
+  margin-left: 0;
+  font-style: italic;
+
+  p {
+    color: rgba($color-dark, 0.7);
+    font-size: 1.1rem;
+  }
+}
+
+// Newsletter/Subscription form
+.wp-block-jetpack-subscriptions__form-elements {
+  @media (max-width: 599px) {
+    flex-wrap: wrap;
+    row-gap: $spacing-sm;
+  }
+
+  input[type="email"] {
+    border: 1px solid rgba($color-dark, 0.12);
+    border-radius: $radius-full;
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-family: $font-family;
+    transition: border-color $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: $color-teal;
+      box-shadow: 0 0 0 3px rgba($color-teal, 0.1);
+    }
+  }
+}

@@ -1,0 +1,54 @@
+// =============================================================================
+// WPFC26 — Design Tokens / Variables
+// =============================================================================
+
+// Colors — Primary Palette
+$color-teal: #15C0CA;
+$color-green: #58C582;
+$color-dark: #202020;
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+// Colors — Extended
+$color-light-gray: #F5F5F5;
+$color-mid-gray: #6B7280;
+$color-border: #E5E7EB;
+
+// Gradients
+$gradient-primary: linear-gradient(to right, $color-green, $color-teal);
+$gradient-primary-reverse: linear-gradient(to left, $color-green, $color-teal);
+$gradient-diagonal: linear-gradient(135deg, $color-green, $color-teal);
+
+// Typography
+$font-family: 'Inter', sans-serif;
+$font-weight-regular: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Spacing
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 48px;
+$spacing-xl: 80px;
+$spacing-2xl: 120px;
+
+// Border radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+
+// Container
+$container-max: 1200px;
+$container-narrow: 800px;

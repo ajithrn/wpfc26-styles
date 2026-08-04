@@ -1,0 +1,14 @@
+{
+  "name": "wpfc26-styles",
+  "version": "1.0.0",
+  "description": "CSS and Sass files for the WP Future Conclave 2026 website.",
+  "scripts": {
+    "build": "sass src/main.scss dist/style.css --style compressed --no-source-map --silence-deprecation=import",
+    "watch": "sass src/main.scss:dist/style.css --style compressed --no-source-map --silence-deprecation=import --watch"
+  },
+  "author": "Ajith",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

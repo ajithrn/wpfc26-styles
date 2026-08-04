@@ -1,0 +1,162 @@
+// =============================================================================
+// WPFC26 — Mixins
+// =============================================================================
+
+@use "sass:color";
+
+// -----------------------------------------------------------------------------
+// Responsive Breakpoints
+// -----------------------------------------------------------------------------
+@mixin device-size($media) {
+  @if $media == phone {
+    @media (max-width: 419px) {
+      @content;
+    }
+  } @else if $media == mobile-landscape {
+    @media (min-width: 420px) {
+      @content;
+    }
+  } @else if $media == tablet-portrait {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $media == tablet-landscape {
+    @media (min-width: 900px) {
+      @content;
+    }
+  } @else if $media == desktop {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Button Generator
+// -----------------------------------------------------------------------------
+@mixin button($bg-color, $size: 'md', $font-color: $color-white) {
+  background-color: $bg-color;
+  color: $font-color;
+  border: none;
+  border-radius: $radius-md;
+  font-family: $font-family;
+  font-weight: $font-weight-semibold;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  display: inline-block;
+
+  @if $size == 'sm' {
+    font-size: 14px;
+    padding: 8px 16px;
+  } @else if $size == 'md' {
+    font-size: 16px;
+    padding: 12px 24px;
+  } @else if $size == 'lg' {
+    font-size: 18px;
+    padding: 16px 32px;
+  }
+
+  &:hover {
+    background-color: color.adjust($bg-color, $lightness: -8%);
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Gradient Button
+// -----------------------------------------------------------------------------
+@mixin gradient-button($size: 'md') {
+  background: $gradient-primary;
+  color: $color-white;
+  border: none;
+  border-radius: $radius-md;
+  font-family: $font-family;
+  font-weight: $font-weight-semibold;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  display: inline-block;
+
+  @if $size == 'sm' {
+    font-size: 14px;
+    padding: 8px 16px;
+  } @else if $size == 'md' {
+    font-size: 16px;
+    padding: 12px 24px;
+  } @else if $size == 'lg' {
+    font-size: 18px;
+    padding: 16px 32px;
+  }
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Gradient Text
+// -----------------------------------------------------------------------------
+@mixin gradient-text() {
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// -----------------------------------------------------------------------------
+// Card
+// -----------------------------------------------------------------------------
+@mixin card() {
+  background: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  padding: $spacing-md;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Section Spacing
+// -----------------------------------------------------------------------------
+@mixin section-spacing() {
+  padding-top: $spacing-lg;
+  padding-bottom: $spacing-lg;
+
+  @include device-size(tablet-portrait) {
+    padding-top: $spacing-xl;
+    padding-bottom: $spacing-xl;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Visually Hidden (sr-only)
+// -----------------------------------------------------------------------------
+@mixin sr-only() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -1,0 +1,43 @@
+/*
+  File: main.scss
+  Description: CSS styles for the WP Future Conclave 2026 website.
+  Theme: Twenty Twenty-Four (Block Theme)
+  Author: Ajith
+  Version: 1.0.0
+
+  === Structure ===
+  1. Common (variables, mixins)
+  2. Base (reset, typography)
+  3. Components (buttons, cards, blocks, forms)
+  4. Layout (header, footer, hero, grid)
+  5. Pages (page, home, tickets, schedule, speakers, sponsors, faq)
+*/
+
+// 1. Common
+@import "common/variables";
+@import "common/mixins";
+
+// 2. Base
+@import "base/reset";
+@import "base/typography";
+
+// 3. Components
+@import "components/buttons";
+@import "components/cards";
+@import "components/blocks";
+@import "components/forms";
+
+// 4. Layout
+@import "layout/header";
+@import "layout/footer";
+@import "layout/hero";
+@import "layout/grid";
+
+// 5. Pages
+@import "pages/page";
+@import "pages/home";
+@import "pages/tickets";
+@import "pages/schedule";
+@import "pages/speakers";
+@import "pages/sponsors";
+@import "pages/faq";

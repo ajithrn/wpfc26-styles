@@ -1,0 +1,70 @@
+// =============================================================================
+// WPFC26 — Cards
+// =============================================================================
+
+// Generic card class
+.wpfc-card {
+  background: $color-white;
+  border: 1px solid rgba($color-dark, 0.06);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+}
+
+// Speaker card
+.wpfc-speaker-card {
+  @extend .wpfc-card;
+  text-align: center;
+  padding: $spacing-xl $spacing-lg;
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto $spacing-md;
+    border: 3px solid transparent;
+    background: $gradient-primary padding-box, $gradient-primary border-box;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: rgba($color-dark, 0.55);
+    margin-bottom: 0;
+  }
+}
+
+// Sponsor card
+.wpfc-sponsor-card {
+  @extend .wpfc-card;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  min-height: 100px;
+
+  img {
+    max-height: 50px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(40%) opacity(0.7);
+    transition: all $transition-base;
+  }
+
+  &:hover img {
+    filter: grayscale(0%) opacity(1);
+  }
+}

@@ -1,0 +1,56 @@
+// =============================================================================
+// WPFC26 — FAQ Page
+// =============================================================================
+
+// FAQ section wrapper
+.wpfc-faq {
+  max-width: $container-narrow;
+  margin: 0 auto;
+
+  // Override wp-block-details for FAQ context
+  .wp-block-details {
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: $spacing-sm $spacing-md;
+    margin-bottom: $spacing-sm;
+    background: $color-white;
+    transition: all $transition-base;
+
+    &[open] {
+      border-color: $color-teal;
+      box-shadow: $shadow-sm;
+      background: rgba($color-teal, 0.02);
+    }
+
+    summary {
+      font-weight: $font-weight-semibold;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: $spacing-xs 0;
+      color: $color-dark;
+      line-height: 1.5;
+    }
+
+    // Answer content
+    p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: $color-mid-gray;
+      padding-top: $spacing-xs;
+    }
+  }
+}
+
+// FAQ category headings
+.wpfc-faq__category {
+  margin-top: $spacing-lg;
+  margin-bottom: $spacing-md;
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: $font-weight-bold;
+    color: $color-dark;
+    padding-bottom: $spacing-xs;
+    border-bottom: 2px solid $color-border;
+  }
+}

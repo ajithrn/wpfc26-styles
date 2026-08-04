@@ -1,0 +1,130 @@
+// =============================================================================
+// WPFC26 — Header & Navigation
+// =============================================================================
+
+// Header wrapper — the first template part
+.wp-block-template-part:first-child {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: $color-white;
+  border-bottom: 1px solid rgba($color-dark, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+// Inner header group
+.wp-block-template-part:first-child > .wp-block-group {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+// Logo
+.wp-block-site-logo {
+  img {
+    max-height: 48px;
+    width: auto;
+
+    @media (max-width: 767px) {
+      max-height: 38px;
+    }
+  }
+}
+
+// Hide site title — logo is enough
+.wp-block-site-title {
+  display: none !important;
+}
+
+// Navigation
+.wp-block-navigation {
+  // Remove all default link underlines
+  a {
+    text-decoration: none !important;
+  }
+
+  .wp-block-navigation-item__content {
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: $radius-full;
+    transition: all $transition-fast;
+    color: rgba($color-dark, 0.7);
+    text-decoration: none !important;
+
+    &:hover {
+      color: $color-teal;
+      background: rgba($color-teal, 0.05);
+      text-decoration: none !important;
+    }
+
+    &:focus {
+      text-decoration: none !important;
+      outline: 2px solid rgba($color-teal, 0.3);
+      outline-offset: 2px;
+    }
+  }
+
+  // Active / current page
+  .current-menu-item .wp-block-navigation-item__content,
+  .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content {
+    color: $color-teal !important;
+    font-weight: 600;
+    background: rgba($color-teal, 0.06);
+    text-decoration: none !important;
+  }
+
+  // Last nav item as CTA button (Tickets)
+  .wp-block-navigation-item:last-child {
+    margin-left: 4px;
+
+    .wp-block-navigation-item__content {
+      background: $gradient-primary !important;
+      color: $color-white !important;
+      font-weight: 600;
+      padding: 10px 22px;
+      box-shadow: 0 2px 8px rgba($color-teal, 0.25);
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba($color-teal, 0.35);
+        background: $gradient-primary !important;
+      }
+    }
+  }
+}
+
+// Also override global link styles within navigation
+.wp-block-navigation a:where(:not(.wp-element-button)) {
+  text-decoration: none !important;
+}
+
+// Mobile navigation
+.wp-block-navigation__responsive-container {
+  &-open svg {
+    height: 26px;
+    width: 26px;
+    color: $color-dark;
+  }
+
+  &.is-menu-open {
+    background: $color-white !important;
+
+    .wp-block-navigation-item__content {
+      font-size: 1.15rem;
+      padding: 14px 0;
+      color: $color-dark;
+    }
+  }
+}
+
+// Admin bar offset
+.admin-bar .wp-block-template-part:first-child {
+  top: 32px;
+
+  @media (max-width: 782px) {
+    top: 46px;
+  }
+}
