@@ -1,60 +1,206 @@
 // =============================================================================
-// WPFC26 — Forms
+// WPFC26 — Forms (Jetpack Contact Form)
 // =============================================================================
 
-// Contact form (Jetpack)
+// Production uses: .jetpack-contact-form-container, .grunion-field-wrap
+// Local uses: .wp-block-jetpack-contact-form, .grunion-field-wrap
+
+// Content wrapper — add spacing when form is direct child of post-content
+.wp-block-post-content > .jetpack-contact-form-container,
+.wp-block-post-content > .wp-block-jetpack-contact-form {
+  padding: $spacing-xl clamp(1.5rem, 4vw, 3rem) !important;
+  max-width: $container-narrow;
+  margin: 0 auto;
+}
+
+// Form container
+.jetpack-contact-form-container,
 .wp-block-jetpack-contact-form {
+  max-width: $container-narrow;
+  margin: 0 auto;
+
+  // Form element
+  form.contact-form,
+  form.jetpack-contact-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  // Field wrappers
   .grunion-field-wrap {
     margin-bottom: $spacing-sm;
 
-    label {
-      color: $color-dark;
-      font-size: 15px;
-      font-weight: $font-weight-semibold;
-      margin-bottom: 4px;
+    label,
+    .grunion-field-label {
       display: block;
+      color: $color-dark;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-family: $font-family;
+
+      .grunion-label-required {
+        color: rgba($color-dark, 0.4);
+        font-weight: 400;
+        font-size: 0.82rem;
+        margin-left: 4px;
+      }
     }
 
-    input,
-    select {
-      border: 1px solid $color-border;
-      border-radius: $radius-md;
-      padding: 10px 14px;
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="number"],
+    input.grunion-field,
+    select,
+    textarea {
+      width: 100% !important;
+      border: 1.5px solid rgba($color-dark, 0.12) !important;
+      border-radius: $radius-md !important;
+      padding: 14px 16px !important;
+      font-size: 1rem !important;
+      font-family: $font-family !important;
+      background: $color-white !important;
+      transition: all $transition-fast;
+      appearance: none;
+      -webkit-appearance: none;
+      box-sizing: border-box;
       line-height: 1.5;
-      font-size: 16px;
-      font-family: $font-family;
-      background: $color-white;
-      width: 100%;
-      transition: border-color $transition-fast;
 
       &:focus {
-        outline: none;
-        border-color: $color-teal;
-        box-shadow: 0 0 0 3px rgba($color-teal, 0.1);
+        outline: none !important;
+        border-color: $color-teal !important;
+        box-shadow: 0 0 0 3px rgba($color-teal, 0.08) !important;
+      }
+
+      &:hover:not(:focus) {
+        border-color: rgba($color-dark, 0.2) !important;
       }
     }
 
     textarea {
-      border: 1px solid $color-border;
-      border-radius: $radius-md;
-      padding: 10px 14px;
-      line-height: 1.6;
-      font-size: 16px;
-      font-family: $font-family;
-      background: $color-white;
-      width: 100%;
-      min-height: 120px;
-      transition: border-color $transition-fast;
+      min-height: 150px !important;
+      resize: vertical;
+    }
 
-      &:focus {
-        outline: none;
-        border-color: $color-teal;
-        box-shadow: 0 0 0 3px rgba($color-teal, 0.1);
-      }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: right 14px center !important;
+      padding-right: 40px !important;
+      cursor: pointer;
     }
   }
 
-  .wp-block-button__link {
-    @include gradient-button('md');
+  // Submit button
+  .contact-submit,
+  .wp-block-button {
+    margin-top: $spacing-md;
+  }
+
+  button[type="submit"],
+  input[type="submit"],
+  .pushbutton-wide {
+    background: $gradient-primary !important;
+    color: $color-white !important;
+    border: none !important;
+    border-radius: $radius-full !important;
+    font-family: $font-family !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    padding: 14px 36px !important;
+    cursor: pointer;
+    transition: all $transition-base;
+    width: auto !important;
+    display: inline-block;
+    text-align: center;
+    line-height: 1.5;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba($color-teal, 0.3);
+      opacity: 0.95;
+    }
+  }
+
+  // Error messages
+  .contact-form__input-error {
+    font-size: 0.82rem;
+    color: #e53e3e;
+    margin-top: 4px;
+  }
+}
+
+// Share buttons — style to match site design
+.sharedaddy {
+  margin-top: $spacing-xl !important;
+  padding-top: $spacing-lg;
+  border-top: 1px solid rgba($color-dark, 0.06);
+
+  .sd-title {
+    font-family: $font-family !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba($color-dark, 0.5) !important;
+    margin-bottom: $spacing-sm !important;
+
+    &::after {
+      display: none !important;
+    }
+  }
+
+  .sd-content ul {
+    display: flex !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+    flex-wrap: wrap;
+  }
+
+  .sd-button {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px !important;
+    border-radius: $radius-full !important;
+    border: 1px solid rgba($color-dark, 0.1) !important;
+    background: $color-white !important;
+    color: rgba($color-dark, 0.7) !important;
+    font-family: $font-family !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    transition: all $transition-fast;
+    box-shadow: none !important;
+
+    &:hover {
+      border-color: $color-teal !important;
+      color: $color-teal !important;
+      background: rgba($color-teal, 0.04) !important;
+    }
+
+    &::before {
+      font-size: 14px !important;
+    }
+  }
+
+  .share-end {
+    display: none !important;
+  }
+
+  .share-customize-link {
+    display: none !important;
+  }
+}
+
+// Also style the form when it's using the new Jetpack interactivity markup
+[data-wp-interactive="jetpack/form"] {
+  .grunion-field-wrap {
+    margin-bottom: $spacing-sm;
   }
 }
