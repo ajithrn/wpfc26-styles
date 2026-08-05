@@ -3,7 +3,7 @@
   Description: CSS styles for the WP Future Conclave 2026 website.
   Theme: Twenty Twenty-Four (Block Theme)
   Author: Ajith
-  Version: 1.0.0
+  Version: 1.1.0
 
   === Structure ===
   1. Common (variables, mixins)
@@ -37,7 +37,10 @@
 @import "pages/page";
 @import "pages/home";
 @import "pages/tickets";
+@import "pages/attendees";
 @import "pages/schedule";
+@import "pages/sessions";
 @import "pages/speakers";
+@import "pages/organizers";
 @import "pages/sponsors";
 @import "pages/faq";

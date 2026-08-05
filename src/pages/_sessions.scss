@@ -1,0 +1,374 @@
+// =============================================================================
+// WPFC26 — Sessions Page (WordCamp Sessions Block)
+// =============================================================================
+
+// WordCamp Sessions Block (production)
+// Rendered by wp-block-wordcamp-sessions
+.wp-block-wordcamp-sessions,
+.wordcamp-sessions {
+
+  // Grid layout
+  &.is-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+
+    @include device-size(tablet-portrait) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include device-size(desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // List layout (default)
+  &.is-list {
+    .wordcamp-session,
+    .wordcamp-block-post-list-item {
+      border-bottom: 1px solid $color-border;
+      padding-bottom: $spacing-md;
+      margin-bottom: $spacing-md;
+
+      &:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  // Individual session item
+  .wordcamp-session,
+  .wordcamp-block-post-list-item {
+    background: $color-white;
+    border: 1px solid rgba($color-dark, 0.06);
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    transition: all $transition-base;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+    }
+
+    // Session title
+    .wordcamp-item-title,
+    .wordcamp-session-title {
+      font-size: 1.1rem;
+      font-weight: $font-weight-bold;
+      color: $color-dark;
+      margin: 0 0 $spacing-xs;
+      line-height: 1.4;
+
+      a {
+        color: $color-dark;
+        text-decoration: none;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: $color-teal;
+        }
+      }
+    }
+
+    // Speaker names under session
+    .wordcamp-session-speakers,
+    .wordcamp-item-meta {
+      font-size: 0.88rem;
+      color: $color-mid-gray;
+      margin-bottom: $spacing-sm;
+
+      a {
+        color: $color-teal;
+        text-decoration: none;
+        font-weight: $font-weight-semibold;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // Session featured image
+    .wordcamp-session-image-container {
+      margin: $spacing-sm 0;
+      border-radius: $radius-md;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      &.align-left {
+        float: left;
+        margin-right: $spacing-md;
+        max-width: 200px;
+      }
+
+      &.align-right {
+        float: right;
+        margin-left: $spacing-md;
+        max-width: 200px;
+      }
+    }
+
+    // Session content/excerpt
+    .wordcamp-item-content,
+    .wordcamp-session-content-excerpt,
+    .wordcamp-session-content-full {
+      font-size: 0.9rem;
+      color: rgba($color-dark, 0.7);
+      line-height: 1.7;
+      margin-bottom: $spacing-sm;
+
+      p {
+        margin: 0 0 $spacing-xs;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .wordcamp-item-permalink {
+        margin-top: $spacing-sm;
+
+        a {
+          color: $color-teal;
+          font-weight: $font-weight-semibold;
+          font-size: 0.85rem;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    // Session meta: date, time, track
+    .wordcamp-session-details,
+    .wordcamp-item-meta.wordcamp-session-details {
+      margin-top: $spacing-sm;
+      padding-top: $spacing-sm;
+      border-top: 1px solid rgba($color-dark, 0.06);
+
+      .wordcamp-session-time-location {
+        font-size: 0.82rem;
+        color: $color-mid-gray;
+        margin-bottom: $spacing-xs;
+      }
+
+      .wordcamp-session-track {
+        display: inline-block;
+        padding: 3px 12px;
+        border-radius: $radius-full;
+        font-size: 0.75rem;
+        font-weight: $font-weight-semibold;
+        background: rgba($color-teal, 0.1);
+        color: $color-teal;
+      }
+
+      .wordcamp-session-categories {
+        margin-top: $spacing-xs;
+
+        .wordcamp-session-category {
+          display: inline-block;
+          padding: 2px 10px;
+          border-radius: $radius-full;
+          font-size: 0.72rem;
+          font-weight: $font-weight-semibold;
+          background: rgba($color-green, 0.1);
+          color: $color-green;
+          margin-right: 4px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+
+    // Speaker sessions list (on speaker detail pages)
+    .wordcamp-speaker-sessions-list,
+    .wordcamp-session-list {
+      list-style: none;
+      padding: 0;
+      margin: $spacing-sm 0 0;
+
+      li {
+        padding: $spacing-xs 0;
+        border-bottom: 1px solid rgba($color-dark, 0.04);
+        font-size: 0.88rem;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        a {
+          color: $color-teal;
+          text-decoration: none;
+          font-weight: $font-weight-semibold;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Custom sessions layout (local build)
+.wpfc-sessions {
+  .wpfc-session-card {
+    background: $color-white;
+    border: 1px solid rgba($color-dark, 0.06);
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-md;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.07);
+      border-color: transparent;
+    }
+
+    // Session time badge
+    .wpfc-session-time {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: $font-weight-semibold;
+      color: $color-teal;
+      background: rgba($color-teal, 0.08);
+      padding: 4px 12px;
+      border-radius: $radius-full;
+      margin-bottom: $spacing-sm;
+    }
+
+    // Session title
+    h3, h4,
+    .wpfc-session-title {
+      font-size: 1.1rem;
+      font-weight: $font-weight-bold;
+      color: $color-dark;
+      margin: 0 0 $spacing-xs;
+      line-height: 1.4;
+    }
+
+    // Speaker name
+    .wpfc-session-speaker {
+      font-size: 0.88rem;
+      color: $color-mid-gray;
+      margin-bottom: $spacing-sm;
+
+      a {
+        color: $color-teal;
+        text-decoration: none;
+        font-weight: $font-weight-semibold;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // Session description
+    .wpfc-session-desc,
+    p {
+      font-size: 0.9rem;
+      color: rgba($color-dark, 0.7);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    // Track tag
+    .wpfc-session-track {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: $radius-full;
+      font-size: 0.75rem;
+      font-weight: $font-weight-semibold;
+      background: rgba($color-teal, 0.1);
+      color: $color-teal;
+      margin-top: $spacing-sm;
+    }
+
+    // Category tags
+    .wpfc-session-categories {
+      margin-top: $spacing-sm;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .wpfc-session-category {
+        padding: 2px 10px;
+        border-radius: $radius-full;
+        font-size: 0.72rem;
+        font-weight: $font-weight-semibold;
+        background: rgba($color-green, 0.1);
+        color: $color-green;
+      }
+    }
+  }
+}
+
+// Sessions grid layout
+.wpfc-sessions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+
+  @include device-size(tablet-portrait) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include device-size(desktop) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .wpfc-session-card {
+    margin-bottom: 0;
+  }
+}
+
+// Session detail page (single session)
+.single-wcb_session {
+  .wpfc-section {
+    .wordcamp-session-speakers,
+    .wpfc-session-speaker {
+      font-size: 1rem;
+      margin-bottom: $spacing-md;
+
+      a {
+        color: $color-teal;
+        font-weight: $font-weight-semibold;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .wordcamp-session-time-location {
+      font-size: 0.9rem;
+      color: $color-mid-gray;
+      padding: $spacing-sm $spacing-md;
+      background: rgba($color-teal, 0.04);
+      border-radius: $radius-md;
+      margin-bottom: $spacing-lg;
+
+      .wordcamp-session-track {
+        display: inline-block;
+        padding: 3px 12px;
+        border-radius: $radius-full;
+        font-size: 0.78rem;
+        font-weight: $font-weight-semibold;
+        background: rgba($color-teal, 0.1);
+        color: $color-teal;
+        margin-left: $spacing-xs;
+      }
+    }
+  }
+}

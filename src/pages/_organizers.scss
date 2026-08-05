@@ -1,0 +1,317 @@
+// =============================================================================
+// WPFC26 — Organizers Page
+// =============================================================================
+
+// WordCamp Organizers Block (production)
+// Rendered by wp-block-wordcamp-organizers
+.wp-block-wordcamp-organizers,
+.wordcamp-organizers {
+
+  // Grid layout (default from block)
+  &.is-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+
+    @include device-size(tablet-portrait) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include device-size(desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // List layout
+  &.is-list {
+    .wordcamp-organizer {
+      display: flex;
+      align-items: flex-start;
+      gap: $spacing-md;
+      margin-bottom: $spacing-md;
+      padding-bottom: $spacing-md;
+      border-bottom: 1px solid $color-border;
+
+      &:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  // Individual organizer card
+  .wordcamp-organizer,
+  .wordcamp-block-post-list-item {
+    @include card();
+    text-align: center;
+    padding: $spacing-lg $spacing-md;
+
+    .wordcamp-organizer__avatar,
+    .wordcamp-item-image,
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto $spacing-sm;
+      border: 3px solid transparent;
+      background-image: $gradient-primary;
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+    }
+
+    .wordcamp-organizer__name,
+    .wordcamp-item-title {
+      font-weight: $font-weight-bold;
+      font-size: 1.05rem;
+      color: $color-dark;
+      margin-bottom: 4px;
+
+      a {
+        color: $color-dark;
+        text-decoration: none;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: $color-teal;
+        }
+      }
+    }
+
+    .wordcamp-organizer__title,
+    .wordcamp-organizer__role {
+      font-size: 0.85rem;
+      color: $color-teal;
+      font-weight: $font-weight-semibold;
+      margin-bottom: $spacing-xs;
+    }
+
+    .wordcamp-organizer__content,
+    .wordcamp-item-content {
+      font-size: 0.88rem;
+      color: $color-mid-gray;
+      line-height: 1.6;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    // WordPress.org profile link
+    .wordcamp-organizer__link,
+    .wordcamp-item-permalink {
+      margin-top: $spacing-sm;
+
+      a {
+        font-size: 0.82rem;
+        color: $color-teal;
+        text-decoration: none;
+        font-weight: $font-weight-semibold;
+        transition: opacity $transition-fast;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
+
+// Custom organizers layout (local build with group/columns)
+.wpfc-organizers {
+  margin-bottom: $spacing-xl;
+
+  // Team section heading
+  .wpfc-organizers__team-title,
+  > h3 {
+    font-weight: $font-weight-bold;
+    font-size: 1.3rem;
+    color: $color-dark;
+    margin-bottom: $spacing-sm;
+    padding-bottom: $spacing-xs;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: $gradient-primary;
+      border-radius: 2px;
+    }
+  }
+
+  // Team description
+  .wpfc-organizers__team-desc,
+  > p {
+    font-size: 0.9rem;
+    color: $color-mid-gray;
+    margin-bottom: $spacing-lg;
+    max-width: 700px;
+  }
+}
+
+// Organizer cards grid
+.wpfc-organizers-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+
+  @include device-size(tablet-portrait) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include device-size(desktop) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // Individual organizer card
+  .wpfc-organizer-card {
+    background: $color-white;
+    border: 1px solid rgba($color-dark, 0.06);
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+      border-color: transparent;
+    }
+
+    .wp-block-image,
+    .wpfc-organizer-avatar {
+      margin-bottom: $spacing-sm;
+
+      img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto;
+        border: 3px solid transparent;
+        background: $gradient-primary padding-box, $gradient-primary border-box;
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+      }
+    }
+
+    h3, h4,
+    .wpfc-organizer-name {
+      font-size: 1rem;
+      font-weight: $font-weight-bold;
+      color: $color-dark;
+      margin: 0 0 4px;
+    }
+
+    .wpfc-organizer-role {
+      font-size: 0.82rem;
+      color: $color-teal;
+      font-weight: $font-weight-semibold;
+      margin-bottom: $spacing-xs;
+    }
+
+    p,
+    .wpfc-organizer-bio {
+      font-size: 0.85rem;
+      color: $color-mid-gray;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    // Social links (if using wp-social-link blocks)
+    .wp-block-social-links,
+    .wpfc-organizer-social {
+      margin-top: $spacing-sm;
+      justify-content: center;
+
+      .wp-social-link {
+        width: 32px;
+        height: 32px;
+
+        a {
+          padding: 4px;
+        }
+      }
+    }
+  }
+}
+
+// Lead organizers - larger cards
+.wpfc-organizers-lead {
+  .wpfc-organizer-card {
+    padding: $spacing-xl $spacing-lg;
+
+    .wp-block-image img,
+    .wpfc-organizer-avatar img {
+      width: 120px;
+      height: 120px;
+    }
+
+    h3, h4 {
+      font-size: 1.15rem;
+    }
+  }
+
+  @include device-size(desktop) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Organizer list style (compact, for large teams)
+.wpfc-organizers-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li,
+  .wpfc-organizer-list-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-md;
+    border-bottom: 1px solid rgba($color-dark, 0.06);
+    transition: background $transition-fast;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: rgba($color-teal, 0.02);
+    }
+
+    img, .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .wpfc-organizer-info {
+      flex: 1;
+
+      h4, .wpfc-organizer-name {
+        font-size: 0.95rem;
+        font-weight: $font-weight-semibold;
+        margin: 0 0 2px;
+        color: $color-dark;
+      }
+
+      p, .wpfc-organizer-role {
+        font-size: 0.82rem;
+        color: $color-mid-gray;
+        margin: 0;
+      }
+    }
+
+    .wp-social-link {
+      flex-basis: 36px !important;
+    }
+  }
+}

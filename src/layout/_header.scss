@@ -103,19 +103,116 @@
 
 // Mobile navigation
 .wp-block-navigation__responsive-container {
+  // Hamburger icon
   &-open svg {
     height: 26px;
     width: 26px;
     color: $color-dark;
   }
 
+  // Overlay when menu is open
   &.is-menu-open {
     background: $color-white !important;
+    padding: $spacing-lg !important;
+
+    // Close button — keep visible top-right
+    .wp-block-navigation__responsive-container-close {
+      position: absolute !important;
+      top: 20px !important;
+      right: 20px !important;
+      z-index: 10 !important;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+
+      svg {
+        height: 28px;
+        width: 28px;
+        color: $color-dark;
+      }
+    }
+
+    // Content wrapper
+    .wp-block-navigation__responsive-container-content {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+      padding-top: 80px !important;
+      padding-left: $spacing-md !important;
+      padding-right: $spacing-md !important;
+      width: 100% !important;
+      gap: 0 !important;
+
+      .wp-block-navigation__container,
+      > ul {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+
+    // Nav items — full width, left aligned
+    .wp-block-navigation-item {
+      width: 100% !important;
+      margin: 0 !important;
+      list-style: none;
+      border-bottom: 1px solid rgba($color-dark, 0.06);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
 
     .wp-block-navigation-item__content {
-      font-size: 1.15rem;
-      padding: 14px 0;
-      color: $color-dark;
+      font-size: 1.2rem !important;
+      font-weight: $font-weight-semibold !important;
+      padding: 18px 0 !important;
+      color: $color-dark !important;
+      display: block !important;
+      text-align: left !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      transition: color $transition-fast;
+      width: 100% !important;
+
+      &:hover {
+        color: $color-teal !important;
+        background: transparent !important;
+      }
+    }
+
+    // Active state
+    .current-menu-item .wp-block-navigation-item__content {
+      color: $color-teal !important;
+    }
+
+    // CTA button (last item - Tickets)
+    .wp-block-navigation-item:last-child {
+      border-bottom: none;
+      margin-top: $spacing-md !important;
+      width: 100% !important;
+
+      .wp-block-navigation-item__content {
+        background: $gradient-primary !important;
+        color: $color-white !important;
+        font-weight: $font-weight-bold !important;
+        padding: 16px 32px !important;
+        border-radius: $radius-full !important;
+        box-shadow: 0 4px 16px rgba($color-teal, 0.3) !important;
+        font-size: 1.1rem !important;
+        text-align: center !important;
+        display: block !important;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
     }
   }
 }
