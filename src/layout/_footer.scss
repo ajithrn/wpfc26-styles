@@ -6,6 +6,7 @@
   background: $color-dark;
   color: rgba($color-white, 0.8);
   padding: $spacing-2xl $spacing-md $spacing-lg !important;
+  overflow: hidden;  // Prevent any horizontal overflow/color strip
 
   @include device-size(tablet-portrait) {
     padding: $spacing-2xl $spacing-xl $spacing-lg !important;
@@ -40,7 +41,7 @@
     margin-bottom: $spacing-md !important;
 
     img {
-      max-width: 180px;
+      max-width: 250px;
       height: auto;
       opacity: 0.9;
     }
@@ -81,18 +82,93 @@
   // Social links
   .wp-block-social-links {
     margin-top: $spacing-sm;
-    gap: 12px;
+    gap: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap;
 
     .wp-social-link {
-      width: 36px;
-      height: 36px;
-      background: rgba($color-white, 0.1) !important;
-      border-radius: 50%;
       transition: all $transition-fast;
+      margin: 0 !important;
 
-      &:hover {
-        background: $color-teal !important;
-        transform: translateY(-2px);
+      a {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      svg {
+        fill: rgba($color-white, 0.7) !important;
+        width: 22px !important;
+        height: 22px !important;
+      }
+
+      &:hover svg {
+        fill: $color-teal !important;
+      }
+    }
+
+    // With background circles
+    &:not(.is-style-logos-only) {
+      .wp-social-link {
+        width: 44px !important;
+        height: 44px !important;
+        background: rgba($color-white, 0.1) !important;
+        border-radius: 50% !important;
+
+        &[class*="wp-social-link-"] {
+          background: rgba($color-white, 0.1) !important;
+        }
+
+        a {
+          width: 100% !important;
+          height: 100% !important;
+        }
+
+        &:hover {
+          background: $color-teal !important;
+          transform: translateY(-2px);
+
+          &[class*="wp-social-link-"] {
+            background: $color-teal !important;
+          }
+
+          svg {
+            fill: $color-white !important;
+          }
+        }
+      }
+    }
+
+    // Logos only — keep subtle bg circles in footer
+    &.is-style-logos-only {
+      .wp-social-link {
+        background: rgba($color-white, 0.1) !important;
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 50% !important;
+
+        &[class*="wp-social-link-"] {
+          background: rgba($color-white, 0.1) !important;
+        }
+
+        a {
+          width: 100% !important;
+          height: 100% !important;
+        }
+
+        &:hover {
+          background: $color-teal !important;
+          transform: translateY(-2px);
+
+          &[class*="wp-social-link-"] {
+            background: $color-teal !important;
+          }
+
+          svg {
+            fill: $color-white !important;
+          }
+        }
       }
     }
   }
@@ -109,4 +185,19 @@
     color: rgba($color-white, 0.4);
     text-align: center;
   }
+}
+
+// Footer template part — prevent overflow causing colored strip
+.wp-block-template-part:last-child {
+  overflow: hidden;
+
+  // If the footer's direct group has a gradient separator above it
+  > .wp-block-group:has(.site-footer) {
+    overflow: hidden;
+  }
+}
+
+// Prevent any full-width elements from causing horizontal scroll
+body {
+  overflow-x: hidden;
 }

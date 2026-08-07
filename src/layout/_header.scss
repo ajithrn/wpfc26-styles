@@ -197,6 +197,7 @@
       border-bottom: none;
       margin-top: $spacing-md !important;
       width: 100% !important;
+      text-align: center !important;
 
       .wp-block-navigation-item__content {
         background: $gradient-primary !important;
@@ -208,6 +209,8 @@
         font-size: 1.1rem !important;
         text-align: center !important;
         display: block !important;
+        margin: 0 auto !important;
+        max-width: 200px;
 
         &:hover {
           opacity: 0.9;

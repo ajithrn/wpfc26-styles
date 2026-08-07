@@ -27,11 +27,22 @@
   border: none !important;
   height: 1px;
   background: rgba($color-dark, 0.08);
-  opacity: 1;
-  margin: $spacing-xl 0 !important;
+  opacity: 1 !important;
+  margin: $spacing-lg 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
 
   &.is-style-wide {
     max-width: none;
+  }
+
+  // Alpha channel opacity variant (WordPress adds this class)
+  &.has-alpha-channel-opacity {
+    opacity: 1 !important;
+    margin: $spacing-lg 0 !important;
+    height: 1px;
+    background: rgba($color-dark, 0.08) !important;
+    border: none !important;
   }
 
   // Gradient separator
@@ -110,6 +121,146 @@
   border-radius: $radius-lg;
 }
 
+// Tables — Sponsor tiers and general
+.wp-block-table {
+  margin-bottom: $spacing-lg;
+  overflow: hidden;
+  font-family: $font-family;
+
+  // Remove WordPress default figure margin
+  &.wp-block-table {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid rgba($color-dark, 0.08);
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    thead {
+      tr {
+        background: rgba($color-teal, 0.06);
+
+        th {
+          padding: 14px 18px;
+          text-align: left;
+          font-weight: $font-weight-bold;
+          font-size: 0.88rem;
+          color: $color-dark;
+          border-bottom: 2px solid rgba($color-dark, 0.08);
+          font-family: $font-family;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        transition: background $transition-fast;
+        border-bottom: 1px solid rgba($color-dark, 0.06);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover {
+          background: rgba($color-teal, 0.02);
+        }
+
+        td {
+          padding: 14px 18px;
+          font-size: 0.9rem;
+          color: rgba($color-dark, 0.75);
+          line-height: 1.6;
+          vertical-align: top;
+          font-family: $font-family;
+          border: none !important;
+
+          strong {
+            font-weight: $font-weight-bold;
+            color: $color-dark;
+          }
+        }
+
+        // First row as category header (e.g. "Brand Visibility")
+        &:first-child td,
+        td:only-child {
+          font-weight: $font-weight-bold;
+          color: $color-dark;
+        }
+      }
+    }
+  }
+
+  // Striped style — WordPress default
+  &.is-style-stripes {
+    border-bottom: none !important;
+
+    table {
+      border: none !important;
+      border-left: none !important;
+
+      thead tr {
+        background: rgba($color-teal, 0.06);
+      }
+
+      tbody {
+        tr {
+          background: $color-white !important;
+          border-bottom: 1px solid rgba($color-dark, 0.06);
+
+          &:nth-child(odd) {
+            background: $color-white !important;
+          }
+
+          &:nth-child(even) {
+            background: $color-white !important;
+          }
+
+          // First row in each table section = category header
+          &:first-child td {
+            font-weight: $font-weight-bold;
+            color: $color-dark;
+            background: rgba($color-teal, 0.04) !important;
+            font-size: 0.92rem;
+          }
+
+          &:hover {
+            background: rgba($color-teal, 0.02) !important;
+          }
+
+          td {
+            border: none !important;
+            border-left: none !important;
+            border-bottom: 1px solid rgba($color-dark, 0.06) !important;
+            padding: 14px 18px !important;
+          }
+        }
+
+        tr:last-child td {
+          border-bottom: none !important;
+        }
+      }
+    }
+  }
+
+  // Remove the left colored border WordPress adds
+  &.is-style-stripes table,
+  & table {
+    border-left: none !important;
+  }
+
+  figcaption {
+    font-size: 0.82rem;
+    color: $color-mid-gray;
+    text-align: center;
+    margin-top: $spacing-xs;
+  }
+}
+
 // Quote
 .wp-block-quote {
   border-left: 3px solid $color-teal;
@@ -120,6 +271,67 @@
   p {
     color: rgba($color-dark, 0.7);
     font-size: 1.1rem;
+  }
+}
+
+// Social links — in page content (contact page, etc.)
+// Simple approach: style all social links that aren't in the footer
+.wp-block-social-links:not(.site-footer .wp-block-social-links) {
+  gap: 12px !important;
+  justify-content: flex-start !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap;
+
+  .wp-social-link {
+    width: 44px !important;
+    height: 44px !important;
+    background: $color-dark !important;
+    border-radius: 50% !important;
+    transition: all $transition-fast !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    &[class*="wp-social-link-"] {
+      background: $color-dark !important;
+    }
+
+    a {
+      padding: 8px !important;
+      color: $color-white !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    svg {
+      width: 22px !important;
+      height: 22px !important;
+      fill: $color-white !important;
+    }
+
+    &:hover {
+      background: $color-teal !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 4px 12px rgba($color-teal, 0.3);
+
+      &[class*="wp-social-link-"] {
+        background: $color-teal !important;
+      }
+    }
+  }
+
+  // Logos only — keep circles but respect the style
+  &.is-style-logos-only .wp-social-link {
+    background: $color-dark !important;
+
+    &[class*="wp-social-link-"] {
+      background: $color-dark !important;
+    }
   }
 }
 

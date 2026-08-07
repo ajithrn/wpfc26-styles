@@ -28,7 +28,8 @@
   }
 
   // Field wrappers
-  .grunion-field-wrap {
+  .grunion-field-wrap,
+  .wp-block-jetpack-input-wrap {
     margin-bottom: $spacing-sm;
 
     label,
@@ -53,7 +54,7 @@
     input[type="url"],
     input[type="tel"],
     input[type="number"],
-    input.grunion-field,
+    input.grunion-field:not([type="radio"]):not([type="checkbox"]),
     select,
     textarea {
       width: 100% !important;
@@ -80,9 +81,63 @@
       }
     }
 
-    textarea {
-      min-height: 150px !important;
-      resize: vertical;
+    // Phone field wrapper and select wrapper (Jetpack adds border to these divs)
+    .jetpack-field__input-phone-wrapper,
+    .contact-form__select-wrapper,
+    div.wp-block-jetpack-input.grunion-field {
+      border: 1.5px solid rgba($color-dark, 0.12) !important;
+      border-radius: $radius-md !important;
+      padding: 0 !important;
+      background: $color-white !important;
+      transition: all $transition-fast;
+      overflow: hidden;
+
+      &:focus-within {
+        border-color: $color-teal !important;
+        box-shadow: 0 0 0 3px rgba($color-teal, 0.08) !important;
+      }
+
+      &:hover:not(:focus-within) {
+        border-color: rgba($color-dark, 0.2) !important;
+      }
+
+      // Inner input inside phone wrapper — no border
+      input,
+      .jetpack-field__input-element {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 14px 16px !important;
+        width: 100% !important;
+      }
+
+      select {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 14px 16px !important;
+        padding-right: 40px !important;
+        width: 100% !important;
+      }
+    }
+
+    // Phone field — flag prefix separator
+    .jetpack-field__input-phone-wrapper {
+      display: flex !important;
+      align-items: stretch !important;
+
+      .jetpack-field__input-prefix {
+        display: flex !important;
+        align-items: center !important;
+        padding: 0 12px !important;
+        border-right: 1px solid rgba($color-dark, 0.1) !important;
+        background: rgba($color-dark, 0.02) !important;
+        flex-shrink: 0;
+      }
+
+      .jetpack-field__input-element {
+        flex: 1 !important;
+        border: none !important;
+        padding: 14px 16px !important;
+      }
     }
 
     select {
@@ -195,6 +250,99 @@
 
   .share-customize-link {
     display: none !important;
+  }
+}
+
+// Radio buttons and checkboxes — simple approach
+// Just fix alignment and spacing, let browser handle the radio visual
+.grunion-field-radio-wrap,
+.grunion-field-checkbox-wrap,
+.wp-block-jetpack-field-radio,
+.wp-block-jetpack-field-checkbox {
+
+  fieldset {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .grunion-radio-options,
+  .grunion-checkbox-options,
+  .wp-block-jetpack-options {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding-top: 4px !important;
+  }
+
+  label.contact-form-field,
+  label.wp-block-jetpack-option {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 6px 0 !important;
+    cursor: pointer;
+    font-weight: $font-weight-regular !important;
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"],
+  input.radio,
+  input.checkbox {
+    width: 1.2em !important;
+    height: 1.2em !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0;
+    cursor: pointer;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    border: 2px solid rgba($color-dark, 0.3) !important;
+    border-radius: 50% !important;
+    background: $color-white !important;
+    transition: all $transition-fast;
+
+    // Hide Jetpack's ::before overlay
+    &::before {
+      display: none !important;
+    }
+
+    &:checked {
+      background: $color-teal !important;
+      border-color: $color-teal !important;
+      box-shadow: inset 0 0 0 3px $color-white;
+    }
+  }
+}
+
+// Extra specificity for Jetpack overrides
+input[type="radio"].grunion-field,
+input[type="radio"].radio,
+input[type="checkbox"].grunion-field,
+input[type="checkbox"].checkbox {
+  width: 1.2em !important;
+  height: 1.2em !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  flex-basis: auto !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 2px solid rgba($color-dark, 0.3) !important;
+  border-radius: 50% !important;
+  background: $color-white !important;
+
+  &::before {
+    display: none !important;
+  }
+
+  &:checked {
+    background: $color-teal !important;
+    border-color: $color-teal !important;
+    box-shadow: inset 0 0 0 3px $color-white;
   }
 }
 

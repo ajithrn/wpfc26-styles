@@ -15,25 +15,46 @@ main.wp-block-group > .wp-block-group:has(.wp-block-post-title) {
   max-width: none !important;
 }
 
+// On single posts, the title is inside a vertical flex group — give bg to this whole section
+// Structure: main > div.has-global-padding.is-layout-constrained > div.is-vertical > h1 + template-part(meta)
+// Target the outer constrained wrapper that has global padding (exclude home page)
+body:not(.home) main.wp-block-group > .wp-block-group.has-global-padding:has(.wp-block-post-title) {
+  background-color: #f0fdfc !important;
+  border-bottom: 1px solid rgba($color-teal, 0.1);
+  padding-top: $spacing-lg !important;
+  padding-bottom: $spacing-sm !important;
+  max-width: none !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  width: 100vw !important;
+  box-sizing: border-box;
+
+  // The vertical flex group inside — center its children
+  .wp-block-group.is-vertical {
+    align-items: center !important;
+  }
+}
+
 .wp-block-post-title {
+  font-family: $font-family !important;
   font-weight: 900 !important;
-  text-align: center;
   font-size: clamp(2rem, 5vw, 2.8rem) !important;
   letter-spacing: -0.03em;
   line-height: 1.2 !important;
   margin: 0 !important;
   margin-block-start: 0 !important;
   margin-block-end: 0 !important;
-  padding: $spacing-lg $spacing-md !important;
+  padding: 0 !important;
   max-width: none !important;
   width: 100% !important;
   box-sizing: border-box;
+  text-align: center !important;
 
-  // Teal color title on light mint background spanning full width
+  // Teal color title — no bg on title itself
   color: $color-teal !important;
   -webkit-text-fill-color: $color-teal;
-  background-color: #f0fdfc;
-  border-bottom: 1px solid rgba($color-teal, 0.1);
+  background: none !important;
+  border-bottom: none !important;
 }
 
 // Hide page title on home page
@@ -41,6 +62,119 @@ body.home .wp-block-post-title,
 body.page-id-7 .wp-block-post-title {
   display: none !important;
 }
+
+// =============================================================================
+// Post Meta (date, author, categories, tags)
+// Markup: .wp-block-group.is-layout-flex > .wp-block-post-date + p("—") + .wp-block-post-author-name + .wp-block-post-terms
+// =============================================================================
+
+// The flex container holding the meta row
+.wp-block-group.is-layout-flex:has(.wp-block-post-date) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.4em !important;
+  padding: $spacing-xs 0 !important;
+  margin-bottom: 0 !important;
+  font-family: $font-family !important;
+  font-size: 0.88rem !important;
+
+  // Override TT4 generated class that may center
+  &.is-content-justification-center,
+  &.is-content-justification-left {
+    justify-content: flex-start !important;
+  }
+}
+
+// Post date
+.wp-block-post-date {
+  font-size: 0.78rem !important;
+  font-weight: $font-weight-regular !important;
+  color: $color-mid-gray !important;
+  font-family: $font-family !important;
+
+  a {
+    color: $color-mid-gray !important;
+    text-decoration: none !important;
+
+    &:hover {
+      color: $color-teal !important;
+    }
+  }
+}
+
+// The separator "—" and "by" paragraphs
+.wp-block-group.is-layout-flex:has(.wp-block-post-date) > p {
+  font-size: 0.78rem !important;
+  font-weight: $font-weight-regular !important;
+  color: $color-mid-gray !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+// Post author name
+.wp-block-post-author-name {
+  font-size: 0.78rem !important;
+  font-weight: $font-weight-regular !important;
+  color: $color-mid-gray !important;
+  font-family: $font-family !important;
+
+  a {
+    color: $color-mid-gray !important;
+    font-weight: $font-weight-regular !important;
+    text-decoration: none !important;
+
+    &:hover {
+      color: $color-teal !important;
+    }
+  }
+}
+
+// Post terms (categories, tags)
+.wp-block-post-terms {
+  font-size: 0.78rem !important;
+  font-weight: $font-weight-regular !important;
+  font-family: $font-family !important;
+
+  .wp-block-post-terms__prefix {
+    color: $color-mid-gray !important;
+  }
+
+  a {
+    color: $color-teal !important;
+    font-weight: $font-weight-regular !important;
+    text-decoration: none !important;
+
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+}
+
+// The meta template part wrapper — tighten padding and force left alignment
+.wp-block-template-part:has(.wp-block-post-date) {
+  .wp-block-group.has-global-padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  // The constrained layout centers children — override to left
+  .wp-block-group.is-layout-constrained {
+    > .wp-block-group.is-layout-flex {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+    }
+  }
+
+  .wp-block-group.is-layout-flex {
+    justify-content: flex-start !important;
+  }
+}
+
+// =============================================================================
+// Content Area
+// =============================================================================
 
 // Content area below the page title
 .wp-block-post-content {
@@ -95,6 +229,218 @@ body.page-id-7 .wp-block-post-title {
   strong {
     font-weight: 700;
     color: $color-dark;
+  }
+}
+
+// =============================================================================
+// Blog Post List (archive, blog index)
+// Archive uses: ul.wp-block-post-template.is-layout-grid > li.wp-block-post
+// =============================================================================
+
+// Archive page query title: "Category: Uncategorized"
+.wp-block-query-title {
+  font-family: $font-family !important;
+  font-weight: 900 !important;
+  font-size: clamp(2rem, 5vw, 2.8rem) !important;
+  color: $color-teal !important;
+  -webkit-text-fill-color: $color-teal;
+  letter-spacing: -0.03em;
+  text-align: center !important;
+  padding: $spacing-lg $spacing-md !important;
+  background: none !important;
+  border-bottom: 3px solid rgba($color-teal, 0.5);
+  margin-bottom: 0 !important;
+  max-width: 110% !important;
+  box-sizing: border-box;
+
+  span {
+    font-style: normal !important;
+  }
+}
+
+// Query block wrapper — ensure full width
+.wp-block-query {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+// Post template grid
+.wp-block-post-template {
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+  max-width: 100% !important;
+  width: 100% !important;
+
+  &.is-layout-grid {
+    gap: $spacing-md !important;
+
+    @include device-size(phone) {
+      grid-template-columns: 1fr !important;
+    }
+
+    @include device-size(tablet-portrait) {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    @include device-size(desktop) {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+
+  // Individual post card in archive
+  .wp-block-post {
+    background: $color-white;
+    border: 1px solid rgba($color-dark, 0.08);
+    border-radius: $radius-lg;
+    padding: $spacing-md !important;
+    transition: all $transition-base;
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+      border-color: rgba($color-teal, 0.15);
+    }
+
+    // Post title in archive card — left aligned, bigger
+    .wp-block-post-title {
+      font-size: 1.4rem !important;
+      font-weight: $font-weight-bold !important;
+      font-family: $font-family !important;
+      padding: 0 0 4px !important;
+      background: none !important;
+      color: $color-dark !important;
+      -webkit-text-fill-color: $color-dark;
+      text-align: left !important;
+      border-bottom: none !important;
+      width: auto !important;
+      max-width: none;
+      margin: 0 !important;
+      line-height: 1.3 !important;
+
+      a {
+        color: $color-dark !important;
+        text-decoration: none !important;
+        -webkit-text-fill-color: $color-dark;
+
+        &:hover {
+          color: $color-teal !important;
+          -webkit-text-fill-color: $color-teal;
+        }
+      }
+    }
+
+    // Meta row inside archive card — left aligned
+    .wp-block-template-part {
+      .wp-block-group.has-global-padding {
+        padding: 0 !important;
+      }
+
+      .wp-block-group.is-layout-flex {
+        justify-content: flex-start !important;
+        gap: 0.4em !important;
+        padding: 0 0 $spacing-xs !important;
+        margin-bottom: $spacing-xs !important;
+        border-bottom: 1px solid rgba($color-dark, 0.06);
+        text-align: left !important;
+      }
+    }
+
+    // Excerpt
+    .wp-block-post-excerpt {
+      font-size: 0.92rem !important;
+      color: rgba($color-dark, 0.7) !important;
+      line-height: 1.7 !important;
+      margin: 0 !important;
+      text-align: left !important;
+
+      .wp-block-post-excerpt__excerpt {
+        margin: 0;
+      }
+
+      .wp-block-post-excerpt__more-text a {
+        color: $color-teal;
+        font-weight: $font-weight-semibold;
+        text-decoration: none;
+        font-size: 0.85rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // Hide spacers in archive cards
+    .wp-block-spacer {
+      display: none !important;
+    }
+
+    // Inner flex group reset
+    .wp-block-group.is-vertical {
+      gap: 0 !important;
+      align-items: flex-start !important;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+  }
+}
+
+// =============================================================================
+// Single Post Navigation
+// =============================================================================
+
+.wp-block-post-navigation-link {
+  font-family: $font-family;
+  font-size: 0.9rem;
+  margin: $spacing-md 0;
+
+  a {
+    color: $color-teal !important;
+    text-decoration: none !important;
+    font-weight: $font-weight-semibold;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .post-navigation-link__label {
+    font-size: 0.78rem;
+    color: $color-mid-gray;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 4px;
+  }
+}
+
+// =============================================================================
+// Comments (if enabled)
+// =============================================================================
+
+// Hide the spacer and separator before comments
+.wp-block-group:has(.wp-block-comments) {
+  .wp-block-spacer {
+    display: none !important;
+  }
+
+  .wp-block-separator {
+    margin: $spacing-md 0 !important;
+    background: rgba($color-dark, 0.08) !important;
+    height: 1px !important;
+  }
+}
+
+.wp-block-comments,
+.wp-block-post-comments-form {
+  margin-top: $spacing-md;
+  padding-top: $spacing-sm;
+  border-top: none !important;
+
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: $spacing-md;
   }
 }
 
