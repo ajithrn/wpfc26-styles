@@ -27,6 +27,11 @@ body {
   line-height: 1.6;
 }
 
+// Global link transitions — smooth color changes on hover
+a {
+  transition: color $transition-fast, opacity $transition-fast, background-color $transition-fast, border-color $transition-fast;
+}
+
 // =============================================================================
 // Layout — Override TT4 theme.json constraints
 // =============================================================================
@@ -84,8 +89,8 @@ body {
 }
 
 // Hide page title on home
-body.home .wp-block-post-title,
-body.page-id-7 .wp-block-post-title {
+body.home > .wp-site-blocks h1.wp-block-post-title,
+body.page-id-7 > .wp-site-blocks h1.wp-block-post-title {
   display: none !important;
 }
 
@@ -115,8 +120,9 @@ main.wp-block-group {
   }
 }
 
-// The group wrapping the post title — no padding leaking
-main.wp-block-group > .wp-block-group:has(.wp-block-post-title) {
+// The group wrapping the post title — no padding leaking (direct child only)
+main.wp-block-group > .wp-block-group:has(> .wp-block-post-title),
+main.wp-block-group > .wp-block-group:has(> .wp-block-group > .wp-block-post-title) {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }

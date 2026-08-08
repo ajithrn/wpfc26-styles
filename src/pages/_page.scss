@@ -7,7 +7,8 @@
 // We need the wrapper to have no padding so the bg color spans full width
 
 // The wrapper around the post title — remove its padding
-main.wp-block-group > .wp-block-group:has(.wp-block-post-title) {
+// The wrapper around the post title — remove its padding (only when title is direct child)
+main.wp-block-group > .wp-block-group:has(> .wp-block-post-title) {
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-top: 0 !important;
@@ -15,14 +16,21 @@ main.wp-block-group > .wp-block-group:has(.wp-block-post-title) {
   max-width: none !important;
 }
 
-// On single posts, the title is inside a vertical flex group — give bg to this whole section
+// On single posts/pages, the title is inside a vertical flex group — give bg to this whole section
 // Structure: main > div.has-global-padding.is-layout-constrained > div.is-vertical > h1 + template-part(meta)
 // Target the outer constrained wrapper that has global padding (exclude home page)
-body:not(.home) main.wp-block-group > .wp-block-group.has-global-padding:has(.wp-block-post-title) {
+// Use :has(> .wp-block-post-title) or :has(> .is-vertical > .wp-block-post-title) to only match
+// direct parent wrappers, not containers that have post titles deep inside (like query grids)
+body:not(.home) main.wp-block-group > .wp-block-group.has-global-padding:has(> .wp-block-post-title),
+body:not(.home) main.wp-block-group > .wp-block-group.has-global-padding:has(> .wp-block-group > .wp-block-post-title) {
   background-color: #f0fdfc !important;
   border-bottom: 1px solid rgba($color-teal, 0.1);
-  padding-top: $spacing-lg !important;
-  padding-bottom: $spacing-sm !important;
+  // Equal top/bottom padding — responsive (reduced)
+  padding-top: clamp(#{$spacing-sm}, 3.5vw, #{$spacing-lg}) !important;
+  padding-bottom: clamp(#{$spacing-sm}, 3.5vw, #{$spacing-lg}) !important;
+  // Ensure side padding matches rest of site
+  padding-left: clamp(1.5rem, 4vw, 3rem) !important;
+  padding-right: clamp(1.5rem, 4vw, 3rem) !important;
   max-width: none !important;
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
@@ -35,10 +43,19 @@ body:not(.home) main.wp-block-group > .wp-block-group.has-global-padding:has(.wp
   }
 }
 
+// Single post header section (featured image + title + meta)
+// Remove top padding that creates white gap below nav
+// The wrapper has inline padding-top from TT4's single.html template
+body.single main > .wp-block-group.has-global-padding {
+  padding-top: 0 !important;
+  padding-left: clamp(1.5rem, 4vw, 3rem) !important;
+  padding-right: clamp(1.5rem, 4vw, 3rem) !important;
+}
+
 .wp-block-post-title {
   font-family: $font-family !important;
   font-weight: 900 !important;
-  font-size: clamp(2rem, 5vw, 2.8rem) !important;
+  font-size: clamp(1.6rem, 4.5vw, 2.8rem) !important;
   letter-spacing: -0.03em;
   line-height: 1.2 !important;
   margin: 0 !important;
@@ -57,10 +74,55 @@ body:not(.home) main.wp-block-group > .wp-block-group.has-global-padding:has(.wp
   border-bottom: none !important;
 }
 
-// Hide page title on home page
-body.home .wp-block-post-title,
-body.page-id-7 .wp-block-post-title {
+// Hide page title on home page (only the main h1, not news card h3s)
+body.home > .wp-site-blocks h1.wp-block-post-title,
+body.page-id-7 > .wp-site-blocks h1.wp-block-post-title {
   display: none !important;
+}
+
+// =============================================================================
+// Single Post Featured Image
+// =============================================================================
+
+// The featured image on single posts — constrain height with a wide crop
+// TT4 single template places it inside a constrained group
+.wp-block-post-featured-image {
+  // Only on single posts (not in archive grids which use their own classes)
+  body.single &,
+  body.single-post & {
+    max-height: 360px !important;
+    overflow: hidden !important;
+    border-radius: $radius-lg !important;
+    margin-bottom: $spacing-md !important;
+    // Center within constrained layout (override WP default margin-left:0)
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    img {
+      width: 100% !important;
+      height: 360px !important;
+      object-fit: cover !important;
+      border-radius: $radius-lg !important;
+    }
+
+    @include device-size(phone) {
+      max-height: 200px !important;
+      border-radius: $radius-md !important;
+
+      img {
+        height: 200px !important;
+        border-radius: $radius-md !important;
+      }
+    }
+
+    @include device-size(tablet-portrait) {
+      max-height: 280px !important;
+
+      img {
+        height: 280px !important;
+      }
+    }
+  }
 }
 
 // =============================================================================
@@ -258,8 +320,8 @@ body.page-id-7 .wp-block-post-title {
   }
 }
 
-// Query block wrapper — ensure full width
-.wp-block-query {
+// Query block wrapper — ensure full width within its content area
+.wp-block-post-content .wp-block-query {
   max-width: 100% !important;
   width: 100% !important;
 }
@@ -269,8 +331,6 @@ body.page-id-7 .wp-block-post-title {
   padding: 0 !important;
   margin: 0 !important;
   list-style: none !important;
-  max-width: 100% !important;
-  width: 100% !important;
 
   &.is-layout-grid {
     gap: $spacing-md !important;
@@ -389,10 +449,37 @@ body.page-id-7 .wp-block-post-title {
 // Single Post Navigation
 // =============================================================================
 
+// Post navigation wrapper — reduce TT4's excessive spacing
+// Only target the nav element itself, not any parent .wp-block-group
+nav[aria-label="Posts"] {
+  padding-top: $spacing-sm !important;
+  padding-bottom: $spacing-sm !important;
+
+  // Ensure the flex container spreads items
+  &.is-layout-flex {
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+}
+
+// The constrained group after post-content that holds tags, separator, spacer, nav
+// Reduce its top margin and hide unnecessary spacers
+.wp-block-post-content ~ .wp-block-group {
+  .wp-block-spacer {
+    display: none !important;
+  }
+
+  > .wp-block-group > .wp-block-spacer {
+    display: none !important;
+  }
+}
+
 .wp-block-post-navigation-link {
   font-family: $font-family;
   font-size: 0.9rem;
-  margin: $spacing-md 0;
+  margin: $spacing-xs 0;
+  display: flex;
+  flex-direction: column;
 
   a {
     color: $color-teal !important;
@@ -412,6 +499,17 @@ body.page-id-7 .wp-block-post-title {
     letter-spacing: 0.05em;
     display: block;
     margin-bottom: 4px;
+  }
+
+  // Next link — align to right, arrow on top
+  &.post-navigation-link-next {
+    text-align: right;
+    margin-left: auto;
+    align-items: flex-end;
+
+    .wp-block-post-navigation-link__arrow-next {
+      order: -1;
+    }
   }
 }
 

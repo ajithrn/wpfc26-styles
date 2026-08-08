@@ -1,0 +1,273 @@
+// =============================================================================
+// WPFC26 — News / Blog Styles
+// =============================================================================
+// Uses flat structure inside post-template grid (no wrapper groups):
+// post-featured-image → post-title → post-date → post-excerpt
+
+// -----------------------------------------------------------------------------
+// News Grid (shared between archive and home page)
+// -----------------------------------------------------------------------------
+
+.wpfc-news-grid {
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+
+  // Override WordPress grid column count at all breakpoints
+  &.is-layout-grid,
+  &[class*="columns-"] {
+    gap: $spacing-lg !important;
+
+    // Mobile-first: 1 column by default
+    grid-template-columns: 1fr !important;
+
+    @include device-size(tablet-portrait) {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    @include device-size(desktop) {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+
+  // Each post item in the grid (li.wp-block-post)
+  .wp-block-post {
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    transition: none !important;
+
+    &:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// News Card Elements
+// -----------------------------------------------------------------------------
+
+// Featured image
+.wpfc-news-card__image {
+  margin: 0 0 $spacing-sm !important;
+  border-radius: $radius-lg !important;
+  overflow: hidden !important;
+  aspect-ratio: 16 / 9;
+
+  a {
+    display: block;
+    height: 100%;
+  }
+
+  img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: $radius-lg !important;
+    transition: transform 0.4s ease !important;
+  }
+
+  &:hover img {
+    transform: scale(1.03);
+  }
+}
+
+// Post title in news cards — override global .wp-block-post-title teal color
+.wpfc-news-card__title.wp-block-post-title,
+.wpfc-news-card__title {
+  font-size: 1.1rem !important;
+  font-weight: $font-weight-bold !important;
+  font-family: $font-family !important;
+  line-height: 1.4 !important;
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+  background: none !important;
+  color: $color-dark !important;
+  -webkit-text-fill-color: $color-dark !important;
+  text-align: left !important;
+  border-bottom: none !important;
+  width: auto !important;
+  max-width: none !important;
+  letter-spacing: -0.01em;
+
+  a {
+    color: $color-dark !important;
+    -webkit-text-fill-color: $color-dark !important;
+    text-decoration: none !important;
+    transition: color $transition-fast, -webkit-text-fill-color $transition-fast;
+
+    &:hover {
+      color: $color-teal !important;
+      -webkit-text-fill-color: $color-teal !important;
+    }
+  }
+}
+
+// Post date
+.wpfc-news-card__date {
+  font-size: 0.78rem !important;
+  color: $color-mid-gray !important;
+  font-weight: $font-weight-regular !important;
+  font-family: $font-family !important;
+  margin: 0 0 $spacing-xs !important;
+  letter-spacing: 0.02em;
+}
+
+// Excerpt + Read More
+.wpfc-news-card__excerpt {
+  font-size: 0.9rem !important;
+  color: rgba($color-dark, 0.65) !important;
+  line-height: 1.65 !important;
+  margin: 0 !important;
+  font-family: $font-family !important;
+
+  .wp-block-post-excerpt__excerpt {
+    margin: 0 0 $spacing-xs !important;
+  }
+
+  .wp-block-post-excerpt__more-text {
+    margin-top: 4px !important;
+
+    a {
+      color: $color-teal !important;
+      font-weight: $font-weight-semibold !important;
+      font-size: 0.85rem !important;
+      text-decoration: none !important;
+      transition: opacity $transition-fast;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// News Archive Page
+// -----------------------------------------------------------------------------
+
+.wpfc-news-archive {
+  box-sizing: border-box;
+}
+
+// -----------------------------------------------------------------------------
+// Home Page News Section
+// -----------------------------------------------------------------------------
+
+.wpfc-news-home {
+  background: linear-gradient(180deg, $color-white 0%, #f9fffe 100%) !important;
+}
+
+// -----------------------------------------------------------------------------
+// News Page Header (blog index title banner)
+// -----------------------------------------------------------------------------
+
+.wpfc-news-page-header {
+  background-color: #f0fdfc !important;
+  border-bottom: 1px solid rgba($color-teal, 0.1) !important;
+  padding: clamp(#{$spacing-sm}, 3.5vw, #{$spacing-lg}) clamp(1.5rem, 4vw, 3rem) !important;
+}
+
+.wpfc-news-page-title {
+  font-family: $font-family !important;
+  font-weight: 900 !important;
+  font-size: clamp(1.6rem, 4.5vw, 2.8rem) !important;
+  color: $color-teal !important;
+  -webkit-text-fill-color: $color-teal !important;
+  background: none !important;
+  text-align: center !important;
+  letter-spacing: -0.03em;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+// -----------------------------------------------------------------------------
+// News Content Area (white background, proper padding)
+// -----------------------------------------------------------------------------
+
+.wpfc-news-content {
+  background: $color-white !important;
+  max-width: 1080px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: $spacing-lg clamp(1.5rem, 4vw, 3rem) !important;
+  box-sizing: border-box;
+}
+
+// -----------------------------------------------------------------------------
+// Pagination
+// -----------------------------------------------------------------------------
+
+.wpfc-news-pagination {
+  margin-top: $spacing-xl !important;
+  padding-top: $spacing-md !important;
+  border-top: 1px solid rgba($color-dark, 0.08);
+  gap: $spacing-xs !important;
+
+  a,
+  span {
+    font-family: $font-family !important;
+    font-size: 0.88rem !important;
+    font-weight: $font-weight-semibold !important;
+    padding: 8px 16px !important;
+    border-radius: $radius-full !important;
+    text-decoration: none !important;
+    transition: all $transition-fast;
+  }
+
+  .wp-block-query-pagination-previous,
+  .wp-block-query-pagination-next {
+    color: $color-teal !important;
+    border: 1px solid rgba($color-teal, 0.25);
+    padding: 8px 20px !important;
+
+    &:hover {
+      background: rgba($color-teal, 0.06) !important;
+      border-color: $color-teal;
+    }
+  }
+
+  .wp-block-query-pagination-numbers {
+    display: flex;
+    gap: 4px;
+
+    .page-numbers {
+      color: $color-mid-gray !important;
+      padding: 8px 12px !important;
+      border-radius: $radius-full !important;
+      min-width: 36px;
+      text-align: center;
+      display: inline-block;
+
+      &:hover {
+        background: rgba($color-teal, 0.06) !important;
+        color: $color-teal !important;
+      }
+
+      &.current {
+        background: $color-teal !important;
+        color: $color-white !important;
+      }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// No Results
+// -----------------------------------------------------------------------------
+
+.wpfc-news-archive .wp-block-query-no-results {
+  padding: $spacing-xl $spacing-md;
+  text-align: center;
+
+  p {
+    font-size: 1.05rem;
+    color: $color-mid-gray;
+  }
+}

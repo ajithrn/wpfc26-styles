@@ -205,40 +205,4 @@
   }
 }
 
-// News grid
-.home-news-grid {
-  .wp-block-post-template {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-md;
-
-    .wp-block-post {
-      flex-basis: 100%;
-
-      @include device-size(tablet-portrait) {
-        flex-basis: calc(50% - 12px);
-      }
-
-      @include device-size(desktop) {
-        flex-basis: calc(33.333% - #{$spacing-md});
-      }
-
-      .wp-block-post-featured-image {
-        aspect-ratio: 16/9;
-        border-radius: $radius-lg;
-        overflow: hidden;
-      }
-
-      .wp-block-post-title a {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: $color-dark;
-        text-decoration: none;
-
-        &:hover {
-          color: $color-teal;
-        }
-      }
-    }
-  }
-}
+// News section on home — styles live in _news.scss (.wpfc-news-home, .wpfc-news-grid)

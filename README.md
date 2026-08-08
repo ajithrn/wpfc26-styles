@@ -57,6 +57,7 @@ src/
 │   └── _grid.scss       Grid utilities & section spacing
 └── pages/
     ├── _home.scss       Home page specifics
+    ├── _news.scss       News archive & home news grid
     ├── _tickets.scss    CampTix / ticket styling
     ├── _schedule.scss   Schedule page
     ├── _speakers.scss   Speakers page
